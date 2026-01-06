@@ -7,13 +7,7 @@ function Login({ onLogin }) {
 
   const submit = (e) => {
     e.preventDefault();
-
-    const session = {
-      role: "user",
-      name,
-      email
-    };
-
+    const session = { role: "user", name, email };
     saveSession(session);
     onLogin(session);
   };
@@ -21,23 +15,10 @@ function Login({ onLogin }) {
   return (
     <div className="login">
       <h2>User Login</h2>
-
       <form onSubmit={submit}>
-        <input
-          placeholder="Your name"
-          value={name}
-          required
-          onChange={(e) => setName(e.target.value)}
-        />
-
-        <input
-          placeholder="Email"
-          value={email}
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <button type="submit">Login</button>
+        <input placeholder="Name" required onChange={(e) => setName(e.target.value)} />
+        <input placeholder="Email" required onChange={(e) => setEmail(e.target.value)} />
+        <button>Login</button>
       </form>
     </div>
   );

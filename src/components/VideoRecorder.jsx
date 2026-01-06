@@ -7,24 +7,11 @@ function VideoRecorder({ onSave }) {
   const [recording, setRecording] = useState(false);
 
   const start = async () => {
-    if (!navigator.mediaDevices || !window.MediaRecorder) {
-      alert("Video recording not supported");
-      return;
-    }
-
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: true
-    });
-
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
     videoRef.current.srcObject = stream;
     recorderRef.current = new MediaRecorder(stream);
     recorderRef.current.start();
-
-    recorderRef.current.ondataavailable = (e) => {
-      chunks.current.push(e.data);
-    };
-
+    recorderRef.current.ondataavailable = (e) => chunks.current.push(e.data);
     setRecording(true);
   };
 
@@ -32,22 +19,21 @@ function VideoRecorder({ onSave }) {
     recorderRef.current.stop();
     recorderRef.current.onstop = () => {
       const blob = new Blob(chunks.current, { type: "video/webm" });
-      const url = URL.createObjectURL(blob);
-      onSave(url);
+      onSave(URL.createObjectURL(blob));
       chunks.current = [];
     };
     setRecording(false);
   };
 
   return (
-    <div>
-      <video ref={videoRef} autoPlay muted width="100%" />
+    <>
+      <video ref={videoRef} autoPlay muted />
       {!recording ? (
         <button onClick={start}>Start Recording</button>
       ) : (
-        <button onClick={stop}>Stop Recording</button>
+        <button onClick={stop}>Stop</button>
       )}
-    </div>
+    </>
   );
 }
 

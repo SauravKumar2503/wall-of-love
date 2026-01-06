@@ -1,14 +1,9 @@
 function FilterBar({ active, setActive }) {
-  const filters = ["All", "Instagram", "Twitter", "Video", "Review"];
-
+  const filters = ["All", "Review", "Instagram", "Twitter", "Video"];
   return (
     <div className="filters">
       {filters.map((f) => (
-        <button
-          key={f}
-          className={`filter-btn ${active === f ? "active" : ""}`}
-          onClick={() => setActive(f)}
-        >
+        <button key={f} onClick={() => setActive(f)} className={active === f ? "active" : ""}>
           {f}
         </button>
       ))}

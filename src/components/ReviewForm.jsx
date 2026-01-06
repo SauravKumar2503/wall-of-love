@@ -20,16 +20,14 @@ function ReviewForm({ user, onUpdate }) {
 
     const updated = [review, ...getReviews()];
     saveReviews(updated);
-    onUpdate(updated);
-
+    onUpdate();
     setText("");
     setVideo(null);
   };
 
   return (
     <div className="review-form">
-      <h3>Post a Review</h3>
-
+      <h3>Add Review</h3>
       <select onChange={(e) => setSource(e.target.value)}>
         <option>Review</option>
         <option>Instagram</option>
@@ -38,11 +36,7 @@ function ReviewForm({ user, onUpdate }) {
       </select>
 
       {source !== "Video" && (
-        <textarea
-          placeholder="Write your review"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
+        <textarea placeholder="Write review" onChange={(e) => setText(e.target.value)} />
       )}
 
       {source === "Video" && <VideoRecorder onSave={setVideo} />}

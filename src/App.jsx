@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { getSession, logout } from "./utils/storage";
 import Login from "./components/Login";
 import AdminLogin from "./components/AdminLogin";
 import ReviewForm from "./components/ReviewForm";
 import WallOfLove from "./components/WallOfLove";
 import AdminDashboard from "./components/AdminDashboard";
-import { getSession, logout } from "./utils/storage";
 
 function App() {
   const [session, setSession] = useState(getSession());
@@ -24,13 +24,11 @@ function App() {
   }
 
   return (
-    <div>
-      <ReviewForm user={session} onUpdate={() => setRefresh((p) => p + 1)} />
+    <>
+      <ReviewForm user={session} onUpdate={() => setRefresh((r) => r + 1)} />
       <WallOfLove refresh={refresh} />
-      <button onClick={() => { logout(); setSession(null); }}>
-        Logout
-      </button>
-    </div>
+      <button onClick={() => { logout(); setSession(null); }}>Logout</button>
+    </>
   );
 }
 

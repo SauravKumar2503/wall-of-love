@@ -10,22 +10,19 @@ function AdminLogin({ onLogin }) {
       saveSession(session);
       onLogin(session);
     } else {
-      alert("Wrong admin password");
+      alert("Wrong password");
     }
   };
 
   return (
     <div className="login">
       <h2>Admin Login</h2>
-
       <input
         type="password"
         placeholder="Admin password"
-        value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-
-      <button onClick={login}>Login as Admin</button>
+      <button onClick={login}>Login</button>
     </div>
   );
 }
