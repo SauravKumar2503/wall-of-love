@@ -1,47 +1,56 @@
 import { useState } from "react";
-import VideoRecorder from "./VideoRecorder";
 import { getReviews, saveReviews } from "../utils/storage";
 
-function ReviewForm({ user, onUpdate }) {
-  const [text, setText] = useState("");
-  const [source, setSource] = useState("Review");
-  const [video, setVideo] = useState(null);
+function ReviewForm({ productId, onNewReview }) {
+  const [name, setName] = useState("");
+  const [content, setContent] = useState("");
+  const [rating, setRating] = useState(5);
 
   const submit = () => {
+    if (!name || !content) return;
+
     const review = {
       id: Date.now(),
-      name: user.name,
-      source,
-      content: text,
-      video,
-      rating: 5,
-      adminReply: null
+      productId,
+      name,
+      content,
+      rating,
+      createdAt: new Date().toLocaleDateString()
     };
 
     const updated = [review, ...getReviews()];
     saveReviews(updated);
-    onUpdate();
-    setText("");
-    setVideo(null);
+    onNewReview();
+    setName("");
+    setContent("");
+    setRating(5);
   };
 
   return (
     <div className="review-form">
-      <h3>Add Review</h3>
-      <select onChange={(e) => setSource(e.target.value)}>
-        <option>Review</option>
-        <option>Instagram</option>
-        <option>Twitter</option>
-        <option>Video</option>
+      <h3>Write a review</h3>
+
+      <input
+        placeholder="Your name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+
+      <textarea
+        placeholder="Share your experience"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      />
+
+      <select value={rating} onChange={(e) => setRating(e.target.value)}>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="1">⭐</option>
       </select>
 
-      {source !== "Video" && (
-        <textarea placeholder="Write review" onChange={(e) => setText(e.target.value)} />
-      )}
-
-      {source === "Video" && <VideoRecorder onSave={setVideo} />}
-
-      <button onClick={submit}>Submit</button>
+      <button onClick={submit}>Submit Review</button>
     </div>
   );
 }
