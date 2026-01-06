@@ -18,17 +18,16 @@ function ReviewForm({ productId, onNewReview }) {
       createdAt: new Date().toLocaleDateString()
     };
 
-    const updated = [review, ...getReviews()];
-    saveReviews(updated);
+    saveReviews([review, ...getReviews()]);
     onNewReview();
+
     setName("");
     setContent("");
-    setRating(5);
   };
 
   return (
     <div className="review-form">
-      <h3>Write a review</h3>
+      <h3>Write a Review</h3>
 
       <input
         placeholder="Your name"
@@ -37,17 +36,15 @@ function ReviewForm({ productId, onNewReview }) {
       />
 
       <textarea
-        placeholder="Share your experience"
+        placeholder="Your experience"
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
 
-      <select value={rating} onChange={(e) => setRating(e.target.value)}>
+      <select onChange={(e) => setRating(e.target.value)}>
         <option value="5">⭐⭐⭐⭐⭐</option>
         <option value="4">⭐⭐⭐⭐</option>
         <option value="3">⭐⭐⭐</option>
-        <option value="2">⭐⭐</option>
-        <option value="1">⭐</option>
       </select>
 
       <button onClick={submit}>Submit Review</button>

@@ -1,13 +1,13 @@
 import { getReviews } from "../utils/storage";
 import ReviewCard from "./ReviewCard";
 
-function ReviewsList({ productId, refresh }) {
+function ReviewsList({ productId }) {
   const reviews = getReviews().filter(
     (r) => r.productId === productId
   );
 
   if (reviews.length === 0) {
-    return <p>No reviews yet for this product.</p>;
+    return <p>No reviews yet.</p>;
   }
 
   return (

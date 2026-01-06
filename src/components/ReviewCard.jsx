@@ -3,9 +3,7 @@ function ReviewCard({ review }) {
     <div className="card">
       <strong>{review.name}</strong>
       <p>“{review.content}”</p>
-      <div className="meta">
-        ⭐ {review.rating} • {review.createdAt}
-      </div>
+      <small>⭐ {review.rating} • {review.createdAt}</small>
     </div>
   );
 }
