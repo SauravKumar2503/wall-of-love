@@ -1,29 +1,23 @@
-import { useState } from "react";
-import testimonials from "../data/testimonials";
+import { useEffect, useState } from "react";
 import LoveCard from "./LoveCard";
-import FilterBar from "./FilterBar";
+import { getReviews } from "../utils/storage";
 
-function WallOfLove() {
-  const [filter, setFilter] = useState("All");
+function WallOfLove({ refresh }) {
+  const [reviews, setReviews] = useState([]);
 
-  const filteredData =
-    filter === "All"
-      ? testimonials
-      : testimonials.filter((item) => item.source === filter);
+  useEffect(() => {
+    setReviews(getReviews());
+  }, [refresh]);
 
   return (
-    <section className="wall">
-      <h2>❤️ Wall of Love</h2>
-      <p>Real stories from real customers</p>
-
-      <FilterBar active={filter} setActive={setFilter} />
-
+    <div>
+      <h2>Wall of Love ❤️</h2>
       <div className="grid">
-        {filteredData.map((item) => (
-          <LoveCard key={item.id} item={item} />
+        {reviews.map((r) => (
+          <LoveCard key={r.id} item={r} />
         ))}
       </div>
-    </section>
+    </div>
   );
 }
 

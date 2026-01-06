@@ -3,13 +3,13 @@ function FilterBar({ active, setActive }) {
 
   return (
     <div className="filters">
-      {filters.map((filter) => (
+      {filters.map((f) => (
         <button
-          key={filter}
-          className={active === filter ? "active" : ""}
-          onClick={() => setActive(filter)}
+          key={f}
+          className={`filter-btn ${active === f ? "active" : ""}`}
+          onClick={() => setActive(f)}
         >
-          {filter}
+          {f}
         </button>
       ))}
     </div>

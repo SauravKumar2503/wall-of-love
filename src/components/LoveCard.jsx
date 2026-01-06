@@ -1,14 +1,18 @@
 function LoveCard({ item }) {
   return (
     <div className="card">
-      <img src={item.avatar} alt={item.name} className="avatar" />
+      <strong>{item.name}</strong>
+      <p>{item.content}</p>
 
-      <div>
-        <h4>{item.name}</h4>
-        <span className="source">{item.source}</span>
-        <p>{item.content}</p>
-        <div className="rating">⭐ {item.rating}/5</div>
-      </div>
+      {item.video && <video src={item.video} controls width="100%" />}
+
+      {item.adminReply && (
+        <div className="admin-reply">
+          <strong>Admin reply:</strong>
+          <p>{item.adminReply.message}</p>
+          <small>{item.adminReply.repliedAt}</small>
+        </div>
+      )}
     </div>
   );
 }
