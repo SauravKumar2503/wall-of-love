@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import WallOfLove from "./pages/WallOfLove";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
@@ -6,14 +7,11 @@ import ProductDetail from "./pages/ProductDetail";
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
+
       <Routes>
-        {/* Default landing page */}
         <Route path="/" element={<WallOfLove />} />
-
-        {/* Products listing */}
         <Route path="/products" element={<Home />} />
-
-        {/* Product detail */}
         <Route path="/product/:id" element={<ProductDetail />} />
       </Routes>
     </BrowserRouter>

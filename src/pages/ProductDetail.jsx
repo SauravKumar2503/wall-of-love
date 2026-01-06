@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import products from "../data/products";
 import ReviewForm from "../components/ReviewForm";
@@ -9,33 +9,45 @@ function ProductDetail() {
   const product = products.find((p) => p.id === id);
   const [refresh, setRefresh] = useState(0);
 
-  if (!product) return <p>Product not found</p>;
+  if (!product) {
+    return <h2 style={{ color: "white", padding: "40px" }}>Product not found</h2>;
+  }
 
   return (
-    <div className="container">
-      <Link to="/">← Back to products</Link>
+    <div className="product-dark-wrapper">
+      {/* Glow effects */}
+      <div className="bg-glow left"></div>
+      <div className="bg-glow right"></div>
 
-      <div className="product-box">
-        <img src={product.image} alt={product.name} />
-        <h1>{product.name}</h1>
-        <p className="price">{product.price}</p>
-        <p>{product.description}</p>
-        <button>Add to Cart</button>
+      <div className="product-container">
+        {/* Product Card */}
+        <div className="product-glass-card">
+          <img src={product.image} alt={product.name} />
+
+          <div className="product-content">
+            <h1>{product.name}</h1>
+            <p className="price">{product.price}</p>
+            <p className="desc">{product.description}</p>
+
+            <button className="primary-btn">Add to Cart</button>
+          </div>
+        </div>
+
+        {/* Reviews */}
+        <section className="reviews-section">
+          <h2>Customer Reviews</h2>
+
+          <ReviewForm
+            productId={product.id}
+            onNewReview={() => setRefresh((r) => r + 1)}
+          />
+
+          <ReviewsList
+            productId={product.id}
+            refresh={refresh}
+          />
+        </section>
       </div>
-
-      <section className="reviews">
-        <h2>Customer Reviews ❤️</h2>
-
-        <ReviewForm
-          productId={product.id}
-          onNewReview={() => setRefresh((r) => r + 1)}
-        />
-
-        <ReviewsList
-          productId={product.id}
-          refresh={refresh}
-        />
-      </section>
     </div>
   );
 }

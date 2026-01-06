@@ -1,11 +1,17 @@
-import { getReviews } from "../utils/storage";
+import { getReviews, saveReviews } from "../utils/storage";
 
 function WallOfLove() {
   const reviews = getReviews();
 
+  const deleteReview = (id) => {
+    const updated = getReviews().filter((r) => r.id !== id);
+    saveReviews(updated);
+    window.location.reload(); 
+  };
+
   return (
     <div className="wall-wrapper">
-      {/* Background glow shapes */}
+      {/* Glow effects */}
       <div className="bg-glow left"></div>
       <div className="bg-glow right"></div>
 
@@ -23,6 +29,7 @@ function WallOfLove() {
               <div className="avatar">
                 {r.name.charAt(0).toUpperCase()}
               </div>
+
               <div>
                 <strong>{r.name}</strong>
                 <span>Verified Customer</span>
@@ -30,6 +37,14 @@ function WallOfLove() {
             </div>
 
             <p className="wall-text">“{r.content}”</p>
+
+            {/* DELETE BUTTON */}
+            <button
+              className="delete-btn"
+              onClick={() => deleteReview(r.id)}
+            >
+              Delete Review
+            </button>
           </div>
         ))}
       </div>
